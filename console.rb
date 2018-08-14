@@ -1,6 +1,9 @@
 require ("pry-byebug")
 require_relative("models/bounty")
 
+Bounty.delete_all()
+binding.pry
+
 bounty1 = Bounty.new({
   "name" => "Raphael",
   "species" => "human",

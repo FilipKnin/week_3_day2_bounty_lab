@@ -34,8 +34,6 @@ class Bounty
     db.close()
   end
 
-
-
   def update
     db = PG.connect({dbname: "space_cowboy", host: "localhost"})
     sql = "UPDATE bounties
@@ -57,6 +55,14 @@ class Bounty
     bounties_list = db.exec_prepared("all")
     db.close()
     return bounties_list.map {|bounty| Bounty.new(bounty)}
+  end
+
+  def Bounty.delete_all()
+    db = PG.connect({dbname: "space_cowboy", host: "localhost"})
+    sql = "DELETE FROM bounties"
+    db.prepare("delete_all", sql)
+    db.exec_prepared("delete_all")
+    db.close()
   end
 
 end
