@@ -6,7 +6,7 @@ class Bounty
   attr_reader(:id)
   def initialize(options)
     @id = options["id"].to_i() if options ["id"]
-    @name = options["name"]
+    @name = options["name"] if options ["id"]
     @species = options["species"]
     @bounty_value = options["bounty_value"]
     @danger_level = options["danger_level"]
@@ -64,5 +64,19 @@ class Bounty
     db.exec_prepared("delete_all")
     db.close()
   end
+
+  def Bounty.find_by_name(name)
+    db = PG.connect({dbname: "space_cowboy", host: "localhost"})
+    sql = "SELECT * FROM bounties WHERE name = $1"
+    values = [name]
+    db.prepare("find_by_name", sql)
+    bounties = db.exec_prepared("find_by_name", values)
+    db.close()
+    return bounties.map {|bounty| Bounty.new(bounty)} if name = [@name]
+  else return nil
+  end
+
+
+
 
 end
