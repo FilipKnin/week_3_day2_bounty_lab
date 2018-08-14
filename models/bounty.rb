@@ -38,4 +38,13 @@ class Bounty
     db.close()
   end
 
+  def Bounty.all()
+    db = PG.connect({dbname: "space_cowboy", host: "localhost"})
+    sql = "SELECT * FROM bounties"
+    db.prepare("all", sql)
+    bounties_list = db.exec_prepared("all")
+    db.close()
+    return bounties_list.map {|bounty| Bounty.new(bounty)}
+  end
+
 end

@@ -16,5 +16,8 @@ bounty2 = Bounty.new({
   })
 
 bounty1.save()
+
+bounties_list = Bounty.all()
+
 binding.pry
 nil
