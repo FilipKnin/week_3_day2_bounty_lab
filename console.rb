@@ -14,3 +14,7 @@ bounty2 = Bounty.new({
   "bounty_value" => "15000",
   "danger_level" => "high"
   })
+
+bounty1.save()
+binding.pry
+nil
